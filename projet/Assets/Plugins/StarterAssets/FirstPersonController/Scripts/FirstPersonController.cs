@@ -13,7 +13,7 @@ namespace StarterAssets
 	{
 		[Header("Player")]
 		[Tooltip("Move speed of the character in m/s")]
-		public float MoveSpeed = 8.0f;
+		public float MoveSpeed = 15.0f;
 		[Tooltip("Sprint speed of the character in m/s")]
 		public float SprintSpeed = 15.0f;
 		[Tooltip("Rotation speed of the character")]
