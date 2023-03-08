@@ -79,6 +79,12 @@ namespace StarterAssets
 
 		private float timeBetweenDash = 3;
 
+		public AudioSource dashSoundEffect;
+
+		public int numJumps = 0;
+
+		//public bool isJumping = _input.jump;
+
 		private bool IsCurrentDeviceMouse
 		{
 			get
@@ -199,6 +205,7 @@ namespace StarterAssets
 					_speed = 50.0f;
 					dashed = true;
 					timeBetweenDash = 0;
+					dashSoundEffect.Play(0);
 				}
 				
             }
@@ -228,6 +235,7 @@ namespace StarterAssets
 			{
 				// reset the fall timeout timer
 				_fallTimeoutDelta = FallTimeout;
+				numJumps = 0;
 
 				// stop our velocity dropping infinitely when grounded
 				if (_verticalVelocity < 0.0f)
@@ -247,7 +255,12 @@ namespace StarterAssets
 				{
 					_jumpTimeoutDelta -= Time.deltaTime;
 				}
+
+				/*if (Input.GetKeyDown(KeyCode.Space)) {
+					numJumps++;
+				}*/
 			}
+			
 			else
 			{
 				// reset the jump timeout timer
@@ -260,6 +273,16 @@ namespace StarterAssets
 				}
 
 				// if we are not grounded, do not jump
+				if (numJumps < 1 && _input.jump) {
+					if (Input.GetKeyDown(KeyCode.Space))
+					{
+						// the square root of H * -2 * G = how much velocity needed to reach desired height
+						_verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+						numJumps++;
+						
+					}
+					
+				}
 				_input.jump = false;
 			}
 
