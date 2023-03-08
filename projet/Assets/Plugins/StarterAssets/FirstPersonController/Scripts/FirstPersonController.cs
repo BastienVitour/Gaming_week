@@ -74,6 +74,11 @@ namespace StarterAssets
 
 		private const float _threshold = 0.01f;
 
+		public bool dashed = false;
+		private float betweenDash = 3;
+
+		private float timeBetweenDash = 3;
+
 		private bool IsCurrentDeviceMouse
 		{
 			get
@@ -168,6 +173,14 @@ namespace StarterAssets
 			float speedOffset = 0.1f;
 			float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
 
+			if (timeBetweenDash < betweenDash) {
+				timeBetweenDash = timeBetweenDash + Time.deltaTime;
+			}
+			else {
+				dashed = false;
+			}
+			
+
 			// accelerate or decelerate to target speed
 			if (currentHorizontalSpeed < targetSpeed - speedOffset || currentHorizontalSpeed > targetSpeed + speedOffset)
 			{
@@ -178,7 +191,18 @@ namespace StarterAssets
 				// round speed to 3 decimal places
 				_speed = Mathf.Round(_speed * 1000f) / 1000f;
 			}
-			else
+			
+			else if (Input.GetKeyDown(KeyCode.R))
+            {
+
+				if (timeBetweenDash >= betweenDash) {
+					_speed = 50.0f;
+					dashed = true;
+					timeBetweenDash = 0;
+				}
+				
+            }
+			else 
 			{
 				_speed = targetSpeed;
 			}
