@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+//using System.Collections;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
 #endif
@@ -50,6 +51,12 @@ namespace StarterAssets
 		public float TopClamp = 90.0f;
 		[Tooltip("How far in degrees can you move the camera down")]
 		public float BottomClamp = -90.0f;
+
+
+		[Header("Crouching")]
+		[Tooltip("the height of the character when crouching")]
+		public float crouchHeight = 0.6f;
+		public float normalHeight = 2.0f;
 
 		// cinemachine
 		private float _cinemachineTargetPitch;
@@ -115,6 +122,15 @@ namespace StarterAssets
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
+
+			if(Input.GetKeyDown(KeyCode.LeftControl)){
+				_controller.height = crouchHeight;
+				MoveSpeed = 1.5f;
+			}
+			if(Input.GetKeyUp(KeyCode.LeftControl)){
+				_controller.height = normalHeight;
+				MoveSpeed = 4.0f;
+			}
 		}
 
 		private void LateUpdate()
