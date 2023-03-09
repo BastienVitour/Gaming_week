@@ -27,10 +27,7 @@ public class DashIconScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Component[] components = timerDisplay.GetComponents(typeof(Component));
-        foreach(Component component in components) {
-            Debug.Log(component.ToString());
-        }
+        
     }
 
     // Update is called once per frame

@@ -81,9 +81,9 @@ namespace StarterAssets
 
 		public AudioSource dashSoundEffect;
 
-		public int numJumps = 0;
+		private int numJumps = 0;
 
-		//public bool isJumping = _input.jump;
+		public GameObject finishLine;
 
 		private bool IsCurrentDeviceMouse
 		{
@@ -126,6 +126,9 @@ namespace StarterAssets
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
+			if (transform.position.y < -25) {
+				transform.position = new Vector3(0, 0, 0);
+			}
 		}
 
 		private void LateUpdate()

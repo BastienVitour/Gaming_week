@@ -9,7 +9,7 @@ showStatusBar = false
 scopes = {
 	"last_search.DA949528" = "scene"
 	"OpenInspectorPreview.DA949528" = "0"
-	"currentGroup.DA949528" = "settings"
+	"currentGroup.DA949528" = "asset"
 }
 providers = {
 	find = {
