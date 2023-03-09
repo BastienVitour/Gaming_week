@@ -81,6 +81,22 @@ namespace StarterAssets
 
 		private const float _threshold = 0.01f;
 
+		public bool dashed = false;
+		private float betweenDash = 3;
+
+		private float timeBetweenDash = 3;
+
+		public AudioSource dashSoundEffect;
+
+		private int numJumps = 0;
+
+		public GameObject finishLine;
+
+		[Header("Crouching")]
+		[Tooltip("the height of the character when crouching")]
+		public float crouchHeight = 0.6f;
+		public float normalHeight = 2.0f;
+
 		private bool IsCurrentDeviceMouse
 		{
 			get
@@ -122,12 +138,14 @@ namespace StarterAssets
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
-
-			if(Input.GetKeyDown(KeyCode.LeftControl)){
+			if (transform.position.y < -25) {
+				transform.position = new Vector3(0, 0, 0);
+			}
+			if (Input.GetKeyDown(KeyCode.LeftControl)) {
 				_controller.height = crouchHeight;
 				MoveSpeed = 1.5f;
 			}
-			if(Input.GetKeyUp(KeyCode.LeftControl)){
+			if (Input.GetKeyUp(KeyCode.LeftControl)) {
 				_controller.height = normalHeight;
 				MoveSpeed = 4.0f;
 			}
@@ -184,6 +202,14 @@ namespace StarterAssets
 			float speedOffset = 0.1f;
 			float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
 
+			if (timeBetweenDash < betweenDash) {
+				timeBetweenDash = timeBetweenDash + Time.deltaTime;
+			}
+			else {
+				dashed = false;
+			}
+			
+
 			// accelerate or decelerate to target speed
 			if (currentHorizontalSpeed < targetSpeed - speedOffset || currentHorizontalSpeed > targetSpeed + speedOffset)
 			{
@@ -194,7 +220,19 @@ namespace StarterAssets
 				// round speed to 3 decimal places
 				_speed = Mathf.Round(_speed * 1000f) / 1000f;
 			}
-			else
+			
+			else if (Input.GetKeyDown(KeyCode.R))
+            {
+
+				if (timeBetweenDash >= betweenDash) {
+					_speed = 50.0f;
+					dashed = true;
+					timeBetweenDash = 0;
+					dashSoundEffect.Play(0);
+				}
+				
+            }
+			else 
 			{
 				_speed = targetSpeed;
 			}
@@ -220,6 +258,7 @@ namespace StarterAssets
 			{
 				// reset the fall timeout timer
 				_fallTimeoutDelta = FallTimeout;
+				numJumps = 0;
 
 				// stop our velocity dropping infinitely when grounded
 				if (_verticalVelocity < 0.0f)
@@ -239,7 +278,12 @@ namespace StarterAssets
 				{
 					_jumpTimeoutDelta -= Time.deltaTime;
 				}
+
+				/*if (Input.GetKeyDown(KeyCode.Space)) {
+					numJumps++;
+				}*/
 			}
+			
 			else
 			{
 				// reset the jump timeout timer
@@ -252,6 +296,16 @@ namespace StarterAssets
 				}
 
 				// if we are not grounded, do not jump
+				if (numJumps < 1 && _input.jump) {
+					if (Input.GetKeyDown(KeyCode.Space))
+					{
+						// the square root of H * -2 * G = how much velocity needed to reach desired height
+						_verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+						numJumps++;
+						
+					}
+					
+				}
 				_input.jump = false;
 			}
 

@@ -39,7 +39,8 @@ public class GameManager : MonoBehaviour
 
     public void Replay()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Debug.Log("sqdfsgdhkugfdsghdtjfyku");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
     }
 
     public void BackToMenu()
