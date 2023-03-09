@@ -332,5 +332,10 @@ namespace StarterAssets
 		{
 			_verticalVelocity = Mathf.Sqrt(JumpHeight * -20f * Gravity);
 		}
+
+		public void Spiked() 
+		{
+			transform.position = new Vector3(0, 0, 0);
+		}
 	}
 }
