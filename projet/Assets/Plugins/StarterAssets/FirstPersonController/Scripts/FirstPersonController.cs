@@ -53,11 +53,6 @@ namespace StarterAssets
 		public float BottomClamp = -90.0f;
 
 
-		[Header("Crouching")]
-		[Tooltip("the height of the character when crouching")]
-		public float crouchHeight = 0.6f;
-		public float normalHeight = 2.0f;
-
 		// cinemachine
 		private float _cinemachineTargetPitch;
 
