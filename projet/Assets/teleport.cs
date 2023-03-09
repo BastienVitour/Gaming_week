@@ -11,6 +11,5 @@ public class teleport : MonoBehaviour{
 
         col.transform.position = destination.position;
         col.transform.Rotate(Vector3.up * 180);
-        Debug.Log(gameObject.name);
     }
 }
