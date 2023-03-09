@@ -6,7 +6,7 @@ public class Spawner : MonoBehaviour
 {
 
     public GameObject platform;
-    public float spawnRate = 0.5f;
+    public float spawnRate = 0.25f;
 
     private float timer = 0;
 
@@ -20,12 +20,13 @@ public class Spawner : MonoBehaviour
     void Start()
     {
         spawnPlatform(7f, allPlatforms[0]);
+        InvokeRepeating ("jspq", 0, 2f); 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (timer < spawnRate) {
+        /*if (timer < spawnRate) {
             timer = timer + Time.deltaTime;
         }
         else {
@@ -36,8 +37,15 @@ public class Spawner : MonoBehaviour
             spawnPlatform(xPos, allPlatforms[which]);
             
             timer = 0;
-        }
+        }*/
         
+    }
+
+    void jspq() {
+        int which = Random.Range(0, allPlatforms.Length);
+            
+            xPos += 8f;
+            spawnPlatform(xPos, allPlatforms[which]);
     }
 
     void spawnPlatform(float xPos, GameObject platform) 
