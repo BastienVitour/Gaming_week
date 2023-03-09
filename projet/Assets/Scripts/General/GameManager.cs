@@ -37,14 +37,27 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
+    private void Update() {
+        /*if (Input.GetKeyDown(KeyCode.Escape)) {
+            FinishGame();
+            BackToMenu();
+        }*/
+    }
+
     public void Replay()
     {
-        Debug.Log("sqdfsgdhkugfdsghdtjfyku");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+        //Debug.Log("sqdfsgdhkugfdsghdtjfyku");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void BackToMenu()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void Next()
+    {
+        //Debug.Log("sqdfsgdhkugfdsghdtjfyku");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
     }
 }
