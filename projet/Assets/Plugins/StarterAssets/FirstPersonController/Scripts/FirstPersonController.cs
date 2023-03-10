@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+//using System.Collections;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
 #endif
@@ -50,6 +51,7 @@ namespace StarterAssets
 		public float TopClamp = 90.0f;
 		[Tooltip("How far in degrees can you move the camera down")]
 		public float BottomClamp = -90.0f;
+
 
 		// cinemachine
 		private float _cinemachineTargetPitch;
@@ -131,7 +133,7 @@ namespace StarterAssets
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
-			if (transform.position.y < -25) {
+			if (transform.position.y < -40) {
 				transform.position = new Vector3(0, 0, 0);
 			}
 			if (Input.GetKeyDown(KeyCode.LeftControl)) {

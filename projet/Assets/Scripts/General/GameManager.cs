@@ -38,10 +38,10 @@ public class GameManager : MonoBehaviour
     }
 
     private void Update() {
-        /*if (Input.GetKeyDown(KeyCode.Escape)) {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
             FinishGame();
             BackToMenu();
-        }*/
+        }
     }
 
     public void Replay()
