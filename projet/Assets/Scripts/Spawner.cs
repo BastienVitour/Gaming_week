@@ -8,7 +8,7 @@ public class Spawner : MonoBehaviour
     public GameObject platform;
     public float spawnRate = 0.25f;
 
-    private float timer = 0;
+    //private float timer = 0;
 
     private float xPos = 7f;
 
@@ -52,8 +52,8 @@ public class Spawner : MonoBehaviour
     void jspq() {
         int which = Random.Range(0, allPlatforms.Length);
             
-            xPos += 8f;
-            spawnPlatform(xPos, allPlatforms[which]);
+        xPos += 8f;
+        spawnPlatform(xPos, allPlatforms[which]);
     }
 
     void spawnPlatform(float xPos, GameObject platform) 

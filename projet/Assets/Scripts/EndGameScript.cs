@@ -13,6 +13,7 @@ public class EndGameScript : MonoBehaviour
     void OnTriggerEnter(Collider col){
 
         Debug.Log("finish line");
+        //PlayerPrefs.SetInt("level", SceneManager.GetActiveScene().buildIndex);
         m_OnInteract.Invoke();
         
     }
