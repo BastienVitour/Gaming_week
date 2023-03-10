@@ -85,6 +85,11 @@ namespace StarterAssets
 
 		public GameObject finishLine;
 
+		[Header("Crouching")]
+        [Tooltip("the height of the character when crouching")]
+        public float crouchHeight = 0.6f;
+        public float normalHeight = 2.0f;
+
 		private bool IsCurrentDeviceMouse
 		{
 			get
@@ -129,6 +134,15 @@ namespace StarterAssets
 			if (transform.position.y < -25) {
 				transform.position = new Vector3(0, 0, 0);
 			}
+			if (Input.GetKeyDown(KeyCode.LeftControl)) {
+                _controller.height = crouchHeight;
+                MoveSpeed = 1.5f;
+            }
+            if (Input.GetKeyUp(KeyCode.LeftControl)) {
+                _controller.height = normalHeight;
+                MoveSpeed = 4.0f;
+            }
+
 		}
 
 		private void LateUpdate()
