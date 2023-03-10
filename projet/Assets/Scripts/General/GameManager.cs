@@ -39,7 +39,10 @@ public class GameManager : MonoBehaviour
 
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Escape)) {
-            FinishGame();
+            m_Player.SetActive(false);
+            m_PlayerCamera.SetActive(false);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
             BackToMenu();
         }
     }

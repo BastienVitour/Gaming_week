@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 //using System.Collections;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
@@ -92,6 +93,8 @@ namespace StarterAssets
 		public float crouchHeight = 0.6f;
 		public float normalHeight = 2.0f;
 
+		public AudioSource screamSound;
+
 		private bool IsCurrentDeviceMouse
 		{
 			get
@@ -134,13 +137,21 @@ namespace StarterAssets
 			GroundedCheck();
 			Move();
 			if (transform.position.y < -40) {
-				transform.position = new Vector3(0, 0, 0);
+				if (SceneManager.GetActiveScene().buildIndex == 8) {
+					screamSound.Play(0);
+					SceneManager.LoadScene(8);
+				}
+				else {
+					screamSound.Play(0);
+					transform.position = new Vector3(0, 0, 0);
+				}
+				
 			}
-			if (Input.GetKeyDown(KeyCode.LeftControl)) {
+			if (Input.GetKeyDown(KeyCode.A)) {
 				_controller.height = crouchHeight;
 				MoveSpeed = 3.0f;
 			}
-			if (Input.GetKeyUp(KeyCode.LeftControl)) {
+			if (Input.GetKeyUp(KeyCode.A)) {
 				_controller.height = normalHeight;
 				MoveSpeed = 6.0f;
 			}
