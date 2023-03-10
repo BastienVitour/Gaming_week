@@ -131,8 +131,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 1339507932}
     m_Modifications:
     - target: {fileID: 453084650579209848, guid: 035bf1ba97d19214580cfe6f5a29fdc3, type: 3}
+      propertyPath: MoveSpeed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 453084650579209848, guid: 035bf1ba97d19214580cfe6f5a29fdc3, type: 3}
       propertyPath: finishLine
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 453084650579209848, guid: 035bf1ba97d19214580cfe6f5a29fdc3, type: 3}
+      propertyPath: SprintSpeed
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 453084650579209848, guid: 035bf1ba97d19214580cfe6f5a29fdc3, type: 3}
       propertyPath: dashSoundEffect
@@ -1642,6 +1650,7 @@ MonoBehaviour:
   - {fileID: 2856142036845972850, guid: a5cbcf30a74894673a43ef4d19a863ed, type: 3}
   - {fileID: 3281638479009356359, guid: a9e106a5c8a82473588d1eda31abfdb6, type: 3}
   - {fileID: 7133235257557040959, guid: 8f842a3149d1e4509b5e03616df045ed, type: 3}
+  - {fileID: 7730761129633851303, guid: c660dc080ef154f53aef22e3906f8cd6, type: 3}
 --- !u!1 &785554362 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 453084650579209855, guid: 035bf1ba97d19214580cfe6f5a29fdc3, type: 3}

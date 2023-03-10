@@ -136,11 +136,11 @@ namespace StarterAssets
 			}
 			if (Input.GetKeyDown(KeyCode.LeftControl)) {
 				_controller.height = crouchHeight;
-				MoveSpeed = 1.5f;
+				MoveSpeed = 3.0f;
 			}
 			if (Input.GetKeyUp(KeyCode.LeftControl)) {
 				_controller.height = normalHeight;
-				MoveSpeed = 4.0f;
+				MoveSpeed = 6.0f;
 			}
 		}
 
@@ -330,7 +330,7 @@ namespace StarterAssets
 
 		public void Bounce() 
 		{
-			_verticalVelocity = Mathf.Sqrt(JumpHeight * -20f * Gravity);
+			_verticalVelocity = Mathf.Sqrt(JumpHeight * -15f * Gravity);
 		}
 
 		public void Spiked() 

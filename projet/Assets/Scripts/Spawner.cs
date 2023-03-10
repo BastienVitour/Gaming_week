@@ -20,12 +20,20 @@ public class Spawner : MonoBehaviour
     void Start()
     {
         spawnPlatform(7f, allPlatforms[0]);
-        InvokeRepeating ("jspq", 0, 2f); 
+        //InvokeRepeating ("jspq", 0, 2f); 
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        if ((xPos - player.transform.position.x) < 50) {
+            int which = Random.Range(0, allPlatforms.Length);
+            
+            xPos += 8f;
+            spawnPlatform(xPos, allPlatforms[which]);
+        }
+
         /*if (timer < spawnRate) {
             timer = timer + Time.deltaTime;
         }
