@@ -3822,6 +3822,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1506031507}
     - target: {fileID: 453084650579209848, guid: 035bf1ba97d19214580cfe6f5a29fdc3, type: 3}
+      propertyPath: RotationSpeed
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 453084650579209848, guid: 035bf1ba97d19214580cfe6f5a29fdc3, type: 3}
       propertyPath: dashSoundEffect
       value: 
       objectReference: {fileID: 1506031498}
