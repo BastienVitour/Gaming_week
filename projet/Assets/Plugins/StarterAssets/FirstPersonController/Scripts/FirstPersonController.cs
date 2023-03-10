@@ -13,9 +13,9 @@ namespace StarterAssets
 	{
 		[Header("Player")]
 		[Tooltip("Move speed of the character in m/s")]
-		public float MoveSpeed = 4.0f;
+		public float MoveSpeed = 15.0f;
 		[Tooltip("Sprint speed of the character in m/s")]
-		public float SprintSpeed = 6.0f;
+		public float SprintSpeed = 15.0f;
 		[Tooltip("Rotation speed of the character")]
 		public float RotationSpeed = 1.0f;
 		[Tooltip("Acceleration and deceleration")]
@@ -86,9 +86,9 @@ namespace StarterAssets
 		public GameObject finishLine;
 
 		[Header("Crouching")]
-        [Tooltip("the height of the character when crouching")]
-        public float crouchHeight = 0.6f;
-        public float normalHeight = 2.0f;
+		[Tooltip("the height of the character when crouching")]
+		public float crouchHeight = 0.6f;
+		public float normalHeight = 2.0f;
 
 		private bool IsCurrentDeviceMouse
 		{
@@ -135,14 +135,13 @@ namespace StarterAssets
 				transform.position = new Vector3(0, 0, 0);
 			}
 			if (Input.GetKeyDown(KeyCode.LeftControl)) {
-                _controller.height = crouchHeight;
-                MoveSpeed = 1.5f;
-            }
-            if (Input.GetKeyUp(KeyCode.LeftControl)) {
-                _controller.height = normalHeight;
-                MoveSpeed = 4.0f;
-            }
-
+				_controller.height = crouchHeight;
+				MoveSpeed = 3.0f;
+			}
+			if (Input.GetKeyUp(KeyCode.LeftControl)) {
+				_controller.height = normalHeight;
+				MoveSpeed = 6.0f;
+			}
 		}
 
 		private void LateUpdate()
@@ -327,6 +326,16 @@ namespace StarterAssets
 
 			// when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
 			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
+		}
+
+		public void Bounce() 
+		{
+			_verticalVelocity = Mathf.Sqrt(JumpHeight * -15f * Gravity);
+		}
+
+		public void Spiked() 
+		{
+			transform.position = new Vector3(0, 0, 0);
 		}
 	}
 }
