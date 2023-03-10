@@ -37,13 +37,30 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            m_Player.SetActive(false);
+            m_PlayerCamera.SetActive(false);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            BackToMenu();
+        }
+    }
+
     public void Replay()
     {
+        //Debug.Log("sqdfsgdhkugfdsghdtjfyku");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void BackToMenu()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void Next()
+    {
+        //Debug.Log("sqdfsgdhkugfdsghdtjfyku");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
     }
 }

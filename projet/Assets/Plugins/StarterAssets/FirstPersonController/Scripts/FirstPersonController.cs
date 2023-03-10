@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+//using System.Collections;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
 #endif
@@ -13,9 +15,9 @@ namespace StarterAssets
 	{
 		[Header("Player")]
 		[Tooltip("Move speed of the character in m/s")]
-		public float MoveSpeed = 4.0f;
+		public float MoveSpeed = 15.0f;
 		[Tooltip("Sprint speed of the character in m/s")]
-		public float SprintSpeed = 6.0f;
+		public float SprintSpeed = 15.0f;
 		[Tooltip("Rotation speed of the character")]
 		public float RotationSpeed = 1.0f;
 		[Tooltip("Acceleration and deceleration")]
@@ -51,6 +53,7 @@ namespace StarterAssets
 		[Tooltip("How far in degrees can you move the camera down")]
 		public float BottomClamp = -90.0f;
 
+
 		// cinemachine
 		private float _cinemachineTargetPitch;
 
@@ -73,6 +76,24 @@ namespace StarterAssets
 		private GameObject _mainCamera;
 
 		private const float _threshold = 0.01f;
+
+		public bool dashed = false;
+		private float betweenDash = 3;
+
+		private float timeBetweenDash = 3;
+
+		public AudioSource dashSoundEffect;
+
+		private int numJumps = 0;
+
+		public GameObject finishLine;
+
+		[Header("Crouching")]
+		[Tooltip("the height of the character when crouching")]
+		public float crouchHeight = 0.6f;
+		public float normalHeight = 2.0f;
+
+		public AudioSource screamSound;
 
 		private bool IsCurrentDeviceMouse
 		{
@@ -115,6 +136,25 @@ namespace StarterAssets
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
+			if (transform.position.y < -40) {
+				if (SceneManager.GetActiveScene().buildIndex == 8) {
+					screamSound.Play(0);
+					SceneManager.LoadScene(8);
+				}
+				else {
+					screamSound.Play(0);
+					transform.position = new Vector3(0, 0, 0);
+				}
+				
+			}
+			if (Input.GetKeyDown(KeyCode.A)) {
+				_controller.height = crouchHeight;
+				MoveSpeed = 3.0f;
+			}
+			if (Input.GetKeyUp(KeyCode.A)) {
+				_controller.height = normalHeight;
+				MoveSpeed = 6.0f;
+			}
 		}
 
 		private void LateUpdate()
@@ -168,6 +208,14 @@ namespace StarterAssets
 			float speedOffset = 0.1f;
 			float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
 
+			if (timeBetweenDash < betweenDash) {
+				timeBetweenDash = timeBetweenDash + Time.deltaTime;
+			}
+			else {
+				dashed = false;
+			}
+			
+
 			// accelerate or decelerate to target speed
 			if (currentHorizontalSpeed < targetSpeed - speedOffset || currentHorizontalSpeed > targetSpeed + speedOffset)
 			{
@@ -178,7 +226,19 @@ namespace StarterAssets
 				// round speed to 3 decimal places
 				_speed = Mathf.Round(_speed * 1000f) / 1000f;
 			}
-			else
+			
+			else if (Input.GetKeyDown(KeyCode.R))
+            {
+
+				if (timeBetweenDash >= betweenDash) {
+					_speed = 50.0f;
+					dashed = true;
+					timeBetweenDash = 0;
+					dashSoundEffect.Play(0);
+				}
+				
+            }
+			else 
 			{
 				_speed = targetSpeed;
 			}
@@ -204,6 +264,7 @@ namespace StarterAssets
 			{
 				// reset the fall timeout timer
 				_fallTimeoutDelta = FallTimeout;
+				numJumps = 0;
 
 				// stop our velocity dropping infinitely when grounded
 				if (_verticalVelocity < 0.0f)
@@ -223,7 +284,12 @@ namespace StarterAssets
 				{
 					_jumpTimeoutDelta -= Time.deltaTime;
 				}
+
+				/*if (Input.GetKeyDown(KeyCode.Space)) {
+					numJumps++;
+				}*/
 			}
+			
 			else
 			{
 				// reset the jump timeout timer
@@ -236,6 +302,16 @@ namespace StarterAssets
 				}
 
 				// if we are not grounded, do not jump
+				if (numJumps < 1 && _input.jump) {
+					if (Input.GetKeyDown(KeyCode.Space))
+					{
+						// the square root of H * -2 * G = how much velocity needed to reach desired height
+						_verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+						numJumps++;
+						
+					}
+					
+				}
 				_input.jump = false;
 			}
 
@@ -263,6 +339,16 @@ namespace StarterAssets
 
 			// when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
 			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
+		}
+
+		public void Bounce() 
+		{
+			_verticalVelocity = Mathf.Sqrt(JumpHeight * -15f * Gravity);
+		}
+
+		public void Spiked() 
+		{
+			transform.position = new Vector3(0, 0, 0);
 		}
 	}
 }

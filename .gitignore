@@ -4,6 +4,8 @@
 [Bb]uild/
 [Bb]uilds/
 Assets/AssetStoreTools*
+[Ll]ogs/
+Logs/
 
 # Visual Studio cache directory
 .vs/
@@ -25,6 +27,7 @@ ExportedObj/
 *.pdb
 *.opendb
 *.VC.db
+*.log
 
 # Unity3D generated meta files
 *.pidb.meta
@@ -39,3 +42,5 @@ sysinfo.txt
 
 # Crashlytics generated file
 Assets/StreamingAssets/crashlytics-build.properties
+
+.DS_Store
