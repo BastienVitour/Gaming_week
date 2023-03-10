@@ -133,7 +133,7 @@ namespace StarterAssets
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
-			if (transform.position.y < -25) {
+			if (transform.position.y < -40) {
 				transform.position = new Vector3(0, 0, 0);
 			}
 			if (Input.GetKeyDown(KeyCode.LeftControl)) {
