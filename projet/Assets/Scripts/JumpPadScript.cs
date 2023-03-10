@@ -15,8 +15,8 @@ public class JumpPadScript : MonoBehaviour
 
         Debug.Log("jump pad");
         m_OnInteract.Invoke();
-        function = GameObject.FindGameObjectWithTag("Player").GetComponent<StarterAssets.FirstPersonController>();
-        function.Bounce();
+        //function = GameObject.FindGameObjectWithTag("Player").GetComponent<StarterAssets.FirstPersonController>();
+        //function.Bounce();
         
     }
 }
